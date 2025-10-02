@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--SQL 쿼리 정의하는 곳
+    Mapper 인터페이스의 패키지+클래스명을 가져와서 매핑-->
+
+<mapper namespace="com.namoo.boardserver.mapper.UserProfileMapper">
+
+    <select id="getUserProfile" resultType="com.namoo.boardserver.dto.UserDTO">
+        SELECT id, userId, password, nickname, createTime, isWithDraw, status
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertUserProfile" parameterType="com.namoo.boardserver.dto.UserDTO">
+        INSERT INTO user (userId, passWord, nickname, isWithDraw, status, isAdmin)
+        VALUES (#{userId}, #{password}, #{nickname}, #{isWithDraw}, #{status}, #{isAdmin})
+    </insert>
+
+    <update id="updateUserProfile" parameterType="com.namoo.boardserver.dto.UserDTO">
+        UPDATE user
+        SET password=#{password},
+            nickname=#{nickName},
+            isWithDraw=#{isWithDraw},
+            status=#{status}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUserProfile">
+        DELETE
+        FROM user
+        WHERE userId = #{id}
+    </delete>
+
+    <insert id="register" parameterType="com.namoo.boardserver.dto.UserDTO">
+        INSERT INTO user (userId, password, nickname, createTime, isWithDraw, status)
+        VALUES (#{userId}, #{password}, #{nickname}, #{createTime}, #{isWithDraw}, #{status})
+    </insert>
+
+    <select id="findByIdAndPassword" resultType="com.namoo.boardserver.dto.UserDTO">
+        SELECT id,
+               userId,
+               password,
+               nickname,
+               createTime,
+               isWithDraw,
+               status
+        FROM user
+        WHERE id = #{id}
+          AND password = #{password}
+          AND status != 'DELETE'
+    </select>
+
+    <select id="findByUserIdAndPassword" resultType="com.namoo.boardserver.dto.UserDTO">
+        SELECT id,
+               userId,
+               password,
+               nickname,
+               createTime,
+               isWithDraw,
+               status
+        FROM user
+        WHERE userId = #{userId}
+          AND password = #{password}
+          AND status != 'DELETE'
+    </select>
+
+    <select id="idCheck" resultType="int">
+        SELECT COUNT(id)
+        FROM user
+        WHERE userId = #{userId}
+    </select>
+
+    <update id="updatePassword" parameterType="com.namoo.boardserver.dto.UserDTO">
+        UPDATE user
+        SET password = #{password}
+        WHERE userId = #{userId}
+    </update>
+
+</mapper>

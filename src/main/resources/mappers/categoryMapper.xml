@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--SQL 쿼리 정의하는 곳
+    Mapper 인터페이스의 패키지+클래스명을 가져와서 매핑-->
+
+<mapper namespace="com.namoo.boardserver.mapper.CategoryMapper">
+
+    <insert id="register" parameterType="com.namoo.boardserver.dto.CategoryDTO">
+        INSERT INTO category (id, name)
+        VALUES (#{id}, #{name})
+    </insert>
+
+    <update id="updateCategory" parameterType="com.namoo.boardserver.dto.CategoryDTO">
+        UPDATE category
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteCategory" parameterType="com.namoo.boardserver.dto.CategoryDTO">
+        DELETE FROM category
+        WHERE id = #{id}
+    </delete>
+</mapper>
