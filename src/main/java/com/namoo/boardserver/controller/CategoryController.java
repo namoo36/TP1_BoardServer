@@ -19,7 +19,6 @@ public class CategoryController {
 
     private final CategoryServiceImpl categoryService;
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @LoginCheck(type = LoginCheck.UserType.ADMIN)   // 관리자만 카테고리 수정이 가능함

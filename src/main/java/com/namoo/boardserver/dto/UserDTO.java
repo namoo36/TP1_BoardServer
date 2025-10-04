@@ -17,7 +17,7 @@ public class UserDTO {
     }
 
     public enum Status{
-        DEFAULT, ADMIN, DELETED
+        USER, ADMIN, DELETED
     }
 
     public UserDTO(String id, String password, String name, String phone, String address, Status status, Date createTime, Date updateTime, boolean isAdmin) {
