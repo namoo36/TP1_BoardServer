@@ -103,7 +103,7 @@ public class UserController {
     // 비밀 번호 업데이트
     @PatchMapping("password-update")
     @LoginCheck(type = LoginCheck.UserType.USER)
-    public ResponseEntity<LoginResponse> updateUserPassword(@RequestBody UserUpdatePasswordRequest userUpdatePasswordRequest,
+    public ResponseEntity<LoginResponse> updateUserPassword(String accountId, @RequestBody UserUpdatePasswordRequest userUpdatePasswordRequest,
                                                             HttpSession session){
         // 응답 객체 생성
         ResponseEntity<LoginResponse> responseEntity = null;
@@ -117,10 +117,6 @@ public class UserController {
         try {
             // 비밀번호 업데이트
             userService.updatePassword(id, beforePassword, afterPassword);
-            // 업데이트 후 새로 로그인
-            UserDTO userInfo = userService.login(id, afterPassword);
-            // 로그인 성공
-            LoginResponse loginResponse = LoginResponse.success(userInfo);
             // 객체 반환
             ResponseEntity.ok(new ResponseEntity<LoginResponse>(loginResponse, HttpStatus.OK));
         } catch (IllegalArgumentException e) {

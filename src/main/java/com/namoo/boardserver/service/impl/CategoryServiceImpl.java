@@ -18,7 +18,12 @@ public class CategoryServiceImpl implements CategoryService {
     public void register(String accountId, CategoryDTO categoryDTO) {
         // 정상적으로 로그인 되었을 때
         if(accountId != null){
-            categoryMapper.register(categoryDTO);
+            try{
+                categoryMapper.register(categoryDTO);
+            } catch (RuntimeException e){
+                log.error("registerId Error! {}", categoryDTO);
+                throw new RuntimeException("registerId Error! 게시글 카테고리 등록 메서드를 확인해주세요.");
+            }
         } else {
             log.error("registerId Error! {}", categoryDTO);
             throw new RuntimeException("registerId Error! 게시글 카테고리 등록 메서드를 확인해주세요.");
@@ -28,7 +33,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void update(CategoryDTO categoryDTO) {
         if(categoryDTO != null){
-            categoryMapper.updateCategory(categoryDTO);
+            try{
+                categoryMapper.updateCategory(categoryDTO);
+            } catch (RuntimeException e){
+                log.error("updateId Error! {}", categoryDTO);
+                throw new RuntimeException("registerId Error! 게시글 카테고리 수정 메서드를 확인해주세요.");
+            }
         } else{
             log.error("updateId Error! {}", categoryDTO);
             throw new RuntimeException("registerId Error! 게시글 카테고리 수정 메서드를 확인해주세요.");
@@ -38,6 +48,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(int categoryId) {
         if(categoryId != 0){
+            try{
+                categoryMapper.deleteCategory(categoryId);
+            } catch (RuntimeException e){
+                log.error("deleteId Error! {}", categoryId);
+                throw new RuntimeException("registerId Error! 게시글 카테고리 삭제 메서드를 확인해주세요.");
+            }
             categoryMapper.deleteCategory(categoryId);
         } else {
             log.error("deleteId Error! {}", categoryId);
