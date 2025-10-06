@@ -40,6 +40,23 @@
         <if test="sortStatus.toString() == 'CATEGORIES'">
             ORDER BY categoryId
         </if>
+    </select>
+
+    <select id="getPostByTag" resultType="com.namoo.boardserver.dto.request.PostSearchRequest">
+        SELECT p.`id`,
+                p.`name`,
+                p.`isAdmin`,
+                p.`contents`,
+                p.`createTime`,
+                p.`views`,
+                p.`categoryId`,
+                p.`userId`,
+                p.`fileId`,
+                p.`updateTime`
+        FROM post p
+            JOIN posttag pt ON p.id = pt.postId
+            JOIN tag t ON pt.tagId = t.id
+        WHERE t.name = #{tagName}
 
     </select>
 
