@@ -1,6 +1,7 @@
 package com.namoo.boardserver.dto.request;
 
 import com.namoo.boardserver.dto.CategoryDTO;
+import com.namoo.boardserver.dto.SortStatus;
 import lombok.*;
 
 @Builder
@@ -15,5 +16,5 @@ public class PostSearchRequest {
     private String contents;
     private int views;
     private int categoryId;
-    private CategoryDTO.SortStatus sortStatus;
+    private SortStatus sortStatus;
 }

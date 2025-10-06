@@ -2,6 +2,7 @@ package com.namoo.boardserver.controller;
 
 import com.namoo.boardserver.aop.LoginCheck;
 import com.namoo.boardserver.dto.CategoryDTO;
+import com.namoo.boardserver.dto.SortStatus;
 import com.namoo.boardserver.service.impl.CategoryServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class CategoryController {
     public void updateCategories(String accountId,
                                  @PathVariable(name="categoryId") int categoryId,
                                  @RequestBody CategoryRequest categoryRequest){
-        CategoryDTO categoryDTO = new CategoryDTO(categoryId, categoryRequest.getName(), CategoryDTO.SortStatus.NEWEST, 10, 1 );
+        CategoryDTO categoryDTO = new CategoryDTO(categoryId, categoryRequest.getName(), SortStatus.NEWEST, 10, 1 );
         categoryService.update(categoryDTO);
 
     }
