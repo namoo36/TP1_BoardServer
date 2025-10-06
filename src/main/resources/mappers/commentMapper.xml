@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.namoo.boardserver.mapper.CommentMapper">
+
+    <insert id="register" parameterType="com.namoo.boardserver.dto.CommentDTO">
+        INSERT INTO comment(postId, contents, subCommentId)
+        VALUES (
+        #{postId},
+        #{contents},
+        <if test="subCommentId != null and subCommentId != 0">
+            #{subCommentId}
+        </if>
+        <if test="subCommentId == null or subCommentId == 0">
+            NULL
+        </if>
+        )
+    </insert>
+
+    <update id="updateComment" parameterType="com.namoo.boardserver.dto.CommentDTO">
+        UPDATE comment
+        SET contents = #{contents},
+            subCommentId = #{subCommentId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deletePostComment">
+        DELETE FROM comment
+        WHERE id = #{commentId}
+    </delete>
+
+
+</mapper>
